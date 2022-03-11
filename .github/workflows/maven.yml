@@ -19,12 +19,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3.0.0
+    
     - name: Set up JDK 11
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3.0.0
       with:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
+    
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    
+    - name: Copy Build Artifact to Staging folder
+      run: mkdir staging && cp target/*.jar staging
+    
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: team_c_unit_conversion_api
+        path: staging
