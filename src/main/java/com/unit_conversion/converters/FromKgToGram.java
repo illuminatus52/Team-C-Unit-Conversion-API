@@ -8,8 +8,7 @@ public class FromKgToGram implements ConvertService {
     }
 
     @Override
-    public double convert(double valueToConvert) {
-        double valueInGram = valueToConvert*1000;
-        return valueInGram;
+    public float convert(float valueToConvert) {
+        return valueToConvert*1000;
     }
 }
