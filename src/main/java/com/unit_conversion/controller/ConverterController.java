@@ -5,6 +5,7 @@ import com.unit_conversion.model.ConverterResponse;
 import com.unit_conversion.service.ConverterService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +19,8 @@ public class ConverterController {
         this.converterService = converterService;
     }
 
-    @PostMapping(path = "")
-    public ResponseEntity<ConverterResponse> convert(ConverterRequest request) {
+    @PostMapping(path = "convert")
+    public ResponseEntity<ConverterResponse> convert(@RequestBody ConverterRequest request) {
         return converterService.convert(request);
     }
 }
