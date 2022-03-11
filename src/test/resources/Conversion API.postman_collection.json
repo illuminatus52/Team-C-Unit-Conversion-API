@@ -12,9 +12,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Successful POST request\", function () {\r",
-							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -25,7 +23,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"fromValue\": 1.0,\r\n    \"fromType\": \"kg\",\r\n    \"toType\": \"g\"\r\n}",
+					"raw": "{\r\n    \"fromValue\": {{$randomPrice}},\r\n    \"fromType\": \"kg\",\r\n    \"toType\": \"g\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -45,7 +43,114 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "successful conversion",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fromValue\": {{$randomPrice}},\r\n    \"fromType\": \"kg\",\r\n    \"toType\": \"g\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/convert",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"convert"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 11 Mar 2022 13:31:50 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"valid\": true,\n    \"result\": 354350,\n    \"fromValue\": 354.35,\n    \"fromType\": \"kg\",\n    \"toType\": \"g\"\n}"
+				},
+				{
+					"name": "error case",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fromValue\": -5.7,\r\n    \"fromType\": \"kg\",\r\n    \"toType\": \"g\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/convert",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"convert"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 11 Mar 2022 13:32:22 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"valid\": false,\n    \"result\": 0,\n    \"fromValue\": -5.7,\n    \"fromType\": \"kg\",\n    \"toType\": \"g\"\n}"
+				}
+			]
 		},
 		{
 			"name": "from g to kg",
@@ -54,9 +159,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Successful POST request\", function () {\r",
-							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -67,7 +170,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"fromValue\": 100.0,\r\n    \"fromType\": \"g\",\r\n    \"toType\": \"kg\"\r\n}",
+					"raw": "{\r\n    \"fromValue\": {{$randomPrice}},\r\n    \"fromType\": \"g\",\r\n    \"toType\": \"kg\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -96,9 +199,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Successful POST request\", function () {\r",
-							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -109,7 +210,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"fromValue\": 100.0,\r\n    \"fromType\": \"C\",\r\n    \"toType\": \"F\"\r\n}",
+					"raw": "{\r\n    \"fromValue\": {{$randomPrice}},\r\n    \"fromType\": \"C\",\r\n    \"toType\": \"F\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -138,9 +239,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Successful POST request\", function () {\r",
-							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -151,7 +250,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"fromValue\": 100.0,\r\n    \"fromType\": \"F\",\r\n    \"toType\": \"C\"\r\n}",
+					"raw": "{\r\n    \"fromValue\": {{$randomPrice}},\r\n    \"fromType\": \"F\",\r\n    \"toType\": \"C\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -172,6 +271,33 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Response status is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					"pm.test(\"Conversion is valid\", function () {",
+					"    var jsonResponse = pm.response.json();",
+					"    pm.expect(jsonResponse.valid).to.eql(true);",
+					"});"
+				]
+			}
 		}
 	]
 }
