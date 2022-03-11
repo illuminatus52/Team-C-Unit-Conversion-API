@@ -15,16 +15,22 @@ public class ConverterService {
 
 
     public ResponseEntity<ConverterResponse> convert(ConverterRequest request) {
-        if (request.getFromValue() < 0) {
-            ConverterResponse response =
-                    new ConverterResponse(false, 0, request.getFromValue(), request.getFromType(), request.getToType());
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
+
         if (request.getFromType().equalsIgnoreCase("kg") && request.getToType().equalsIgnoreCase("g")) {
+            if (request.getFromValue() < 0) {
+                ConverterResponse response =
+                        new ConverterResponse(false, 0, request.getFromValue(), request.getFromType(), request.getToType());
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            }
             FromKgToGram fromKgToGram = new FromKgToGram();
             float result = fromKgToGram.convert(request.getFromValue());
             return createResponse(result, request);
         } else if (request.getFromType().equalsIgnoreCase("g") && request.getToType().equalsIgnoreCase("kg")) {
+            if (request.getFromValue() < 0) {
+                ConverterResponse response =
+                        new ConverterResponse(false, 0, request.getFromValue(), request.getFromType(), request.getToType());
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            }
             FromGramToKg fromGramToKg = new FromGramToKg();
             float result = fromGramToKg.convert(request.getFromValue());
             return createResponse(result,request);

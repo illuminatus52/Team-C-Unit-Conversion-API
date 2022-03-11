@@ -40,6 +40,29 @@ public class ServiceTest {
         assertEquals(status, HttpStatus.OK);
     }
 
+
+    @Test
+    public void fToCTest() {
+        ConverterRequest request = new ConverterRequest(32,"f","c");
+        ConverterResponse response =  controller.convert(request).getBody();
+        HttpStatus status = controller.convert(request).getStatusCode();
+        assert response != null;
+        assertEquals(0, response.getResult());
+        assertTrue(response.isValid());
+        assertEquals(status, HttpStatus.OK);
+    }
+
+    @Test
+    public void CToFTest() {
+        ConverterRequest request = new ConverterRequest(100,"c","f");
+        ConverterResponse response =  controller.convert(request).getBody();
+        HttpStatus status = controller.convert(request).getStatusCode();
+        assert response != null;
+        assertEquals(212, response.getResult());
+        assertTrue(response.isValid());
+        assertEquals(status, HttpStatus.OK);
+    }
+
     @Test
     public void unValidTest() {
         ConverterRequest request = new ConverterRequest(-10000,"g","kg");
@@ -57,7 +80,6 @@ public class ServiceTest {
         assertEquals(0, response2.getResult());
         assertFalse(response2.isValid());
         assertEquals(status2, HttpStatus.BAD_REQUEST);
-
 
     }
 
