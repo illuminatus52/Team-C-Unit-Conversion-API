@@ -1,5 +1,7 @@
 package com.unit_conversion.service;
 
+import com.unit_conversion.converters.FromCelsiusToFahrenheit;
+import com.unit_conversion.converters.FromFahrenheitToCelsius;
 import com.unit_conversion.converters.FromGramToKg;
 import com.unit_conversion.converters.FromKgToGram;
 import com.unit_conversion.model.ConverterRequest;
@@ -26,6 +28,14 @@ public class ConverterService {
             FromGramToKg fromGramToKg = new FromGramToKg();
             float result = fromGramToKg.convert(request.getFromValue());
             return createResponse(result,request);
+        } else if (request.getFromType().equalsIgnoreCase("f") && request.getToType().equalsIgnoreCase("c")){
+            FromFahrenheitToCelsius fromFahrenheitToCelsius = new FromFahrenheitToCelsius();
+            float conversion = fromFahrenheitToCelsius.convert(request.getFromValue());
+            return createResponse(conversion,request);
+        } else if(request.getFromType().equalsIgnoreCase("c") && request.getToType().equalsIgnoreCase("f")) {
+            FromCelsiusToFahrenheit fromCelsiusToFahrenheit = new FromCelsiusToFahrenheit();
+            float conversion = fromCelsiusToFahrenheit.convert(request.getFromValue());
+            return createResponse(conversion,request);
         } else {
             ConverterResponse response =
                     new ConverterResponse(false, 0, request.getFromValue(), request.getFromType(), request.getToType());
