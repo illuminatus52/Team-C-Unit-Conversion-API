@@ -12,46 +12,64 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ConverterService {
-
-
-    public ResponseEntity<ConverterResponse> convert(ConverterRequest request) {
-
-        if (request.getFromType().equalsIgnoreCase("kg") && request.getToType().equalsIgnoreCase("g")) {
-            if (request.getFromValue() < 0) {
-                ConverterResponse response =
-                        new ConverterResponse(false, 0, request.getFromValue(), request.getFromType(), request.getToType());
-                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-            }
-            FromKgToGram fromKgToGram = new FromKgToGram();
-            float result = fromKgToGram.convert(request.getFromValue());
-            return createResponse(result, request);
-        } else if (request.getFromType().equalsIgnoreCase("g") && request.getToType().equalsIgnoreCase("kg")) {
-            if (request.getFromValue() < 0) {
-                ConverterResponse response =
-                        new ConverterResponse(false, 0, request.getFromValue(), request.getFromType(), request.getToType());
-                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-            }
-            FromGramToKg fromGramToKg = new FromGramToKg();
-            float result = fromGramToKg.convert(request.getFromValue());
-            return createResponse(result,request);
-        } else if (request.getFromType().equalsIgnoreCase("f") && request.getToType().equalsIgnoreCase("c")){
-            FromFahrenheitToCelsius fromFahrenheitToCelsius = new FromFahrenheitToCelsius();
-            float conversion = fromFahrenheitToCelsius.convert(request.getFromValue());
-            return createResponse(conversion,request);
-        } else if(request.getFromType().equalsIgnoreCase("c") && request.getToType().equalsIgnoreCase("f")) {
-            FromCelsiusToFahrenheit fromCelsiusToFahrenheit = new FromCelsiusToFahrenheit();
-            float conversion = fromCelsiusToFahrenheit.convert(request.getFromValue());
-            return createResponse(conversion,request);
-        } else {
-            ConverterResponse response =
-                    new ConverterResponse(false, 0, request.getFromValue(), request.getFromType(), request.getToType());
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    public ResponseEntity<ConverterResponse> createResponse(float result, ConverterRequest request) {
-        ConverterResponse response =
-                new ConverterResponse(true, result, request.getFromValue(), request.getFromType(), request.getToType());
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+	
+	public ResponseEntity<ConverterResponse> convert(ConverterRequest request) {
+		// mass conversion
+		if (request.getFromType().equalsIgnoreCase("kg") &&
+			request.getToType().equalsIgnoreCase("g")) {
+			// mass validation
+			if (request.getFromValue() < 0) {
+				ConverterResponse response = new ConverterResponse(false, 0,
+						request.getFromValue(), request.getFromType(), request.getToType());
+				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			}
+			FromKgToGram fromKgToGram = new FromKgToGram();
+			float result = fromKgToGram.convert(request.getFromValue());
+			return createResponse(result, request);
+		} else if (request.getFromType().equalsIgnoreCase("g") &&
+				   request.getToType().equalsIgnoreCase("kg")) {
+			// mass validation
+			if (request.getFromValue() < 0) {
+				ConverterResponse response = new ConverterResponse(false, 0,
+						request.getFromValue(), request.getFromType(), request.getToType());
+				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			}
+			FromGramToKg fromGramToKg = new FromGramToKg();
+			float result = fromGramToKg.convert(request.getFromValue());
+			return createResponse(result, request);
+		// temperature conversion
+		} else if (request.getFromType().equalsIgnoreCase("f") &&
+				   request.getToType().equalsIgnoreCase("c")) {
+			// Fahrenheit validation
+			if (request.getFromValue() < -459.67) {
+				ConverterResponse response = new ConverterResponse(false, 0,
+						request.getFromValue(), request.getFromType(), request.getToType());
+				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			}
+			FromFahrenheitToCelsius fromFahrenheitToCelsius = new FromFahrenheitToCelsius();
+			float conversion = fromFahrenheitToCelsius.convert(request.getFromValue());
+			return createResponse(conversion, request);
+		} else if (request.getFromType().equalsIgnoreCase("c") &&
+				   request.getToType().equalsIgnoreCase("f")) {
+			// Celsius validation
+			if (request.getFromValue() < -273.15) {
+				ConverterResponse response = new ConverterResponse(false, 0,
+						request.getFromValue(), request.getFromType(), request.getToType());
+				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			}
+			FromCelsiusToFahrenheit fromCelsiusToFahrenheit = new FromCelsiusToFahrenheit();
+			float conversion = fromCelsiusToFahrenheit.convert(request.getFromValue());
+			return createResponse(conversion, request);
+		} else {
+			ConverterResponse response = new ConverterResponse(false, 0,
+					request.getFromValue(), request.getFromType(), request.getToType());
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	public ResponseEntity<ConverterResponse> createResponse(float result, ConverterRequest request) {
+		ConverterResponse response = new ConverterResponse(true, result,
+				request.getFromValue(), request.getFromType(), request.getToType());
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 }

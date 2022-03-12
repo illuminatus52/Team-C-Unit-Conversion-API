@@ -10,10 +10,12 @@ public class ConverterRequest {
     @NotEmpty
     @NotBlank
     private float fromValue;
+
     @NotNull
     @NotEmpty
     @NotBlank
     private String fromType;
+
     @NotNull
     @NotEmpty
     @NotBlank
