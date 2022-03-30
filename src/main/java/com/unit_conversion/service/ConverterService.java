@@ -10,9 +10,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+/**
+ * The Converter logic service.
+ */
 @Service
 public class ConverterService {
-	
+
+	/**
+	 * this method gets an object of ConverterRequest and does what in the request says.
+	 * the convert cases : from Kg to g, from g to Kg, from C to F, and from F to C.
+	 * @param request an object of ConverterRequest
+	 * @return Http status with ConverterResponse
+	 */
 	public ResponseEntity<ConverterResponse> convert(ConverterRequest request) {
 		// mass conversion
 		if (request.getFromType().equalsIgnoreCase("kg") &&
@@ -66,7 +75,14 @@ public class ConverterService {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
+	/**
+	 * This method creates the ConverterResponse entity to return it with the HttpStatus.OK (200).
+	 *
+	 * @param result the conversion result in float
+	 * @param request an object of ConverterRequest
+	 * @return Http status with ConverterResponse in case of Http status = OK (200)
+	 */
 	public ResponseEntity<ConverterResponse> createResponse(float result, ConverterRequest request) {
 		ConverterResponse response = new ConverterResponse(true, result,
 				request.getFromValue(), request.getFromType(), request.getToType());
